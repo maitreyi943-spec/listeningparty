@@ -1,0 +1,41 @@
+@import "tailwindcss";
+:root {
+  --paper: #fdf1f2;      /* soft blush paper */
+  --ink: #4a2c30;         /* warm dark mauve for text */
+  --accent: #d98ea3;      /* pastel pink accent */
+  --accent-deep: #b76a80; /* slightly deeper pink for buttons/contrast */
+}
+
+body {
+  background: #14100e;
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* paper texture, subtle noise via layered gradients */
+.paper {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0,0,0,0.03) 0%, transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(0,0,0,0.03) 0%, transparent 40%);
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.08);
+}
+
+.page-shadow {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* react-pageflip internal containers need explicit clipping */
+.stf__parent, .stf__block, .stf__item {
+  overflow: hidden !important;
+}
+
+.stf__item > div {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
