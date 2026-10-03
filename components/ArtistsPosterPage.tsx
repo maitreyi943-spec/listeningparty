@@ -1,270 +1,127 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-
-interface Artist {
-  id: number;
-  name: string;
-  image: string;
-  rotation: string;
-  width: string;
-  left: string;
-  bottom: string;
-  zIndex: number;
-}
-
-const artists: Artist[] = [
-  {
-    id: 1,
-    name: "Artist 1",
-    image: "/artists/artist1.png",
-    rotation: "-4deg",
-    width: "36%",
-    left: "-7%",
-    bottom: "-2%",
-    zIndex: 10,
-  },
-  {
-    id: 2,
-    name: "Artist 2",
-    image: "/artists/artist2.png",
-    rotation: "3deg",
-    width: "40%",
-    left: "11%",
-    bottom: "-2%",
-    zIndex: 20,
-  },
-  {
-    id: 3,
-    name: "Artist 3",
-    image: "/artists/artist3.png",
-    rotation: "-2deg",
-    width: "46%",
-    left: "27%",
-    bottom: "-1%",
-    zIndex: 30,
-  },
-  {
-    id: 4,
-    name: "Artist 4",
-    image: "/artists/artist4.png",
-    rotation: "3deg",
-    width: "40%",
-    left: "49%",
-    bottom: "-2%",
-    zIndex: 20,
-  },
-  {
-    id: 5,
-    name: "Artist 5",
-    image: "/artists/artist5.png",
-    rotation: "-4deg",
-    width: "36%",
-    left: "71%",
-    bottom: "-2%",
-    zIndex: 10,
-  },
-];
-
-const sparkles = [
-  { id: 1, left: "7%", top: "18%", size: "text-2xl", rotation: "-12deg" },
-  { id: 2, left: "19%", top: "42%", size: "text-lg", rotation: "15deg" },
-  { id: 3, left: "34%", top: "25%", size: "text-xl", rotation: "-8deg" },
-  { id: 4, left: "49%", top: "43%", size: "text-2xl", rotation: "12deg" },
-  { id: 5, left: "65%", top: "22%", size: "text-lg", rotation: "-15deg" },
-  { id: 6, left: "79%", top: "40%", size: "text-2xl", rotation: "8deg" },
-  { id: 7, left: "91%", top: "24%", size: "text-lg", rotation: "-10deg" },
-  { id: 8, left: "12%", top: "66%", size: "text-lg", rotation: "10deg" },
-  { id: 9, left: "87%", top: "65%", size: "text-xl", rotation: "-12deg" },
-];
+import React, { useState } from "react";
 
 const ArtistsPosterPage = React.forwardRef<HTMLDivElement>((_, ref) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <section
       ref={ref}
-      className="
-        relative
-        min-h-screen
-        w-full
-        overflow-hidden
-        bg-[#f8eee9]
-      "
+      className="relative h-full w-full overflow-hidden bg-[#f8eee9]"
     >
-      {/* BACKGROUND */}
+      {/* HOVER SHAKE */}
+      <style>{`
+        @keyframes posterShake {
+          0% { transform: translateY(-3px) rotate(-1deg) scale(1.02); }
+          25% { transform: translateY(-3px) rotate(0.8deg) scale(1.02); }
+          50% { transform: translateY(-3px) rotate(-0.7deg) scale(1.02); }
+          75% { transform: translateY(-3px) rotate(0.6deg) scale(1.02); }
+          100% { transform: translateY(-3px) rotate(-1deg) scale(1.02); }
+        }
+      `}</style>
+
+      {/* SOFT BACKGROUND */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="
-            absolute
-            -right-32
-            -top-32
-            h-[420px]
-            w-[420px]
-            rounded-full
-            bg-[#e8c4cb]
-            opacity-40
-            blur-3xl
-          "
-        />
-
-        <div
-          className="
-            absolute
-            -bottom-40
-            -right-20
-            h-[500px]
-            w-[500px]
-            rounded-full
-            bg-[#ead8c8]
-            opacity-45
-            blur-3xl
-          "
-        />
-
-        <div
-          className="
-            absolute
-            left-1/2
-            top-1/2
-            h-[500px]
-            w-[500px]
-            -translate-x-1/2
-            -translate-y-1/2
-            rounded-full
-            bg-[#fff8f3]
-            opacity-80
-            blur-3xl
-          "
-        />
-      </div>
-
-      {/* SPARKLES */}
-      <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
-        {sparkles.map((sparkle) => (
-          <span
-            key={sparkle.id}
-            className={`
-              absolute
-              ${sparkle.size}
-              select-none
-              text-[#a66d7e]
-              opacity-70
-              drop-shadow-[0_2px_4px_rgba(150,95,115,0.18)]
-            `}
-            style={{
-              left: sparkle.left,
-              top: sparkle.top,
-              transform: `rotate(${sparkle.rotation})`,
-            }}
-          >
-            ✦
-          </span>
-        ))}
-
-        <span className="absolute left-[27%] top-[58%] text-sm text-[#c08b9b] opacity-70">
-          ✧
-        </span>
-
-        <span className="absolute left-[73%] top-[58%] text-sm text-[#c08b9b] opacity-70">
-          ✧
-        </span>
-
-        <span className="absolute left-[55%] top-[67%] text-xs text-[#a66d7e] opacity-60">
-          ✦
-        </span>
+        <div className="absolute -right-24 -top-24 h-[300px] w-[300px] rounded-full bg-[#e8c4cb] opacity-30 blur-3xl" />
+        <div className="absolute -bottom-28 -left-20 h-[350px] w-[350px] rounded-full bg-[#ead8c8] opacity-30 blur-3xl" />
+        <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#fff8f3] opacity-70 blur-3xl" />
       </div>
 
       {/* HEADER */}
-      <div
-        className="
-          relative
-          z-50
-          mx-auto
-          w-full
-          max-w-[1600px]
-          px-4
-          pt-5
-          text-center
-          sm:px-6
-          sm:pt-7
-          lg:px-10
-          lg:pt-8
-        "
-      >
+      <div className="relative z-20 flex w-full flex-col items-center px-6 pt-7 text-center sm:px-8 sm:pt-9">
         <p
-          className="
-            mb-2
-            text-[10px]
-            font-medium
-            uppercase
-            tracking-[0.4em]
-            text-[#9b6576]
-            sm:text-xs
-            lg:text-sm
-          "
-          style={{
-            fontFamily: "Arial, sans-serif",
-          }}
+          className="mb-2 text-[9px] font-medium uppercase tracking-[0.3em] text-[#9b6576] sm:text-[10px] lg:text-xs"
+          style={{ fontFamily: "Arial, sans-serif" }}
         >
-          Featured artists
+          Featured Artists
         </p>
 
         <h1
-          className="
-            mx-auto
-            w-full
-            text-balance
-            font-semibold
-            leading-[1.05]
-            tracking-[-0.02em]
-            text-[#641033]
-          "
+          className="m-0 w-full text-center font-semibold uppercase leading-[0.92] tracking-[-0.015em] text-[#641033]"
           style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "clamp(1.6rem, 5.5vw, 4.5rem)",
+            fontFamily: "Georgia, 'Times New Roman', serif",
+            fontSize: "clamp(2rem, 4vw, 3.5rem)",
           }}
         >
-          YOUR FAVOURITE ARTISTS
+          YOUR FAVOURITE
+          <br />
+          ARTISTS
         </h1>
+
+        <div className="mt-4 h-px w-12 bg-[#9b6576] opacity-60" />
       </div>
 
-      {/* ARTIST STAGE */}
-      <div className="absolute inset-x-0 bottom-0 top-[14%] z-30 overflow-hidden">
-        {artists.map((artist) => (
+      {/* POSTER AREA (under header) */}
+      <div
+        className="absolute inset-x-0 bottom-0 z-30 flex justify-center px-8 pb-10"
+        style={{ top: 185 }}
+      >
+        <div
+          className="relative h-full cursor-pointer"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          style={{
+            animation: isHovered
+              ? "posterShake 0.55s ease-in-out infinite"
+              : "none",
+          }}
+        >
+          {/* PAPER CUTOUT LAYERS (behind the image) */}
           <div
-            key={artist.id}
-            className="
-              absolute
-              flex
-              items-end
-              justify-center
-            "
+            className="pointer-events-none absolute inset-0"
             style={{
-              left: artist.left,
-              bottom: artist.bottom,
-              width: artist.width,
-              zIndex: artist.zIndex,
+              filter:
+                "drop-shadow(0 6px 10px rgba(74,45,55,0.22)) drop-shadow(0 1px 2px rgba(74,45,55,0.15))",
             }}
           >
-            <Image
-              src={artist.image}
-              alt={artist.name}
-              width={700}
-              height={900}
-              sizes="50vw"
-              priority
-              className="
-                h-auto
-                w-full
-                object-contain
-                drop-shadow-[0_18px_18px_rgba(74,45,55,0.25)]
-              "
+            {/* back paper layer, cream, tilted one way */}
+            <div
+              className="absolute"
               style={{
-                transform: `rotate(${artist.rotation})`,
+                inset: -18,
+                background: "#f1e4d8",
+                transform: "rotate(2.2deg)",
+                clipPath:
+                  "polygon(2% 1%, 15% 0%, 30% 1.5%, 47% 0%, 63% 1.5%, 80% 0%, 97% 1%, 100% 15%, 98.5% 32%, 100% 50%, 98.8% 68%, 100% 85%, 98% 99%, 82% 100%, 65% 98.5%, 48% 100%, 30% 98.5%, 14% 100%, 1% 98.5%, 0% 82%, 1.5% 64%, 0% 46%, 1.2% 28%, 0% 12%)",
+              }}
+            />
+            {/* front paper layer, white, tilted the other way */}
+            <div
+              className="absolute"
+              style={{
+                inset: -10,
+                background: "#fffdf9",
+                transform: "rotate(-1.8deg)",
+                clipPath:
+                  "polygon(1% 2%, 12% 0%, 26% 1.5%, 41% 0%, 58% 1.5%, 74% 0%, 90% 1.5%, 99% 0.5%, 100% 14%, 98.5% 30%, 100% 47%, 98.8% 63%, 100% 80%, 99% 98%, 85% 100%, 68% 98.5%, 50% 100%, 32% 98.5%, 15% 100%, 2% 99%, 0% 84%, 1.5% 66%, 0% 48%, 1.2% 30%, 0% 14%)",
               }}
             />
           </div>
-        ))}
+
+          {/* TAPE */}
+          <div
+            className="pointer-events-none absolute z-10"
+            style={{
+              top: -22,
+              left: "50%",
+              width: 70,
+              height: 22,
+              marginLeft: -35,
+              background: "rgba(232,196,203,0.75)",
+              transform: "rotate(-4deg)",
+              boxShadow: "0 1px 2px rgba(74,45,55,0.2)",
+            }}
+          />
+
+          {/* POSTER IMAGE */}
+          <img
+            src="/artists-poster.png"
+            alt="Featured artists"
+            draggable={false}
+            className="relative block h-full w-auto"
+          />
+        </div>
       </div>
     </section>
   );

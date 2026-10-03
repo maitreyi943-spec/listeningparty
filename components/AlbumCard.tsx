@@ -22,7 +22,7 @@ export default function AlbumCard({
       type="button"
       onClick={onSelect}
       className={`
-        text-left rounded-md overflow-hidden border
+        self-start h-fit flex flex-col text-left rounded-md overflow-hidden border
         transition-all duration-200
         ${
           selected
@@ -31,7 +31,7 @@ export default function AlbumCard({
         }
       `}
     >
-      <div className="relative w-full aspect-square">
+      <div className="relative w-full aspect-square shrink-0">
         <Image
           src={cover}
           alt={title}
@@ -41,12 +41,12 @@ export default function AlbumCard({
         />
       </div>
 
-      <div className="p-1.5">
-        <p className="text-[11px] font-medium truncate">
+      <div className="shrink-0 px-1.5 pt-1.5 pb-2">
+        <p className="text-[11px] font-medium leading-tight truncate">
           {title}
         </p>
 
-        <p className="text-[10px] text-[var(--ink)]/60 truncate">
+        <p className="text-[10px] leading-tight text-[var(--ink)]/60 truncate">
           {artist}
         </p>
       </div>

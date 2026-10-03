@@ -9,83 +9,240 @@ const rules = [
   "No cussing",
 ];
 
-const sparkles = [
-  { left: "8%", top: "10%", size: "text-xl", rotation: "-12deg" },
-  { left: "88%", top: "16%", size: "text-lg", rotation: "10deg" },
-  { left: "14%", top: "82%", size: "text-lg", rotation: "12deg" },
-  { left: "84%", top: "78%", size: "text-xl", rotation: "-8deg" },
-  { left: "50%", top: "92%", size: "text-sm", rotation: "10deg" },
-];
-
-// react-pageflip needs each page to be a forwardRef component
 const RulesPage = React.forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div
       ref={ref}
-      className="relative h-full w-full overflow-hidden bg-[#f8eee9]"
+      className="
+        relative
+        h-full
+        w-full
+        overflow-hidden
+        bg-[#E8C4C9]
+      "
       style={{ containerType: "inline-size" }}
     >
-      {/* BACKGROUND */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -right-24 -top-24 h-[300px] w-[300px] rounded-full bg-[#e8c4cb] opacity-40 blur-3xl" />
-        <div className="absolute -bottom-28 -left-16 h-[320px] w-[320px] rounded-full bg-[#ead8c8] opacity-45 blur-3xl" />
-        <div className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#fff8f3] opacity-80 blur-3xl" />
-      </div>
+      {/* SOFT PAPER GLOW */}
 
-      {/* SPARKLES */}
-      <div className="pointer-events-none absolute inset-0 z-10">
-        {sparkles.map((s, i) => (
-          <span
-            key={i}
-            className={`absolute ${s.size} select-none text-[#a66d7e] opacity-60`}
-            style={{
-              left: s.left,
-              top: s.top,
-              transform: `rotate(${s.rotation})`,
-            }}
-          >
-            ✦
-          </span>
-        ))}
-      </div>
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/2
+          h-[75%]
+          w-[75%]
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-[#f8eee9]
+          opacity-25
+          blur-3xl
+        "
+      />
 
-      {/* CONTENT */}
-      <div className="relative z-20 flex h-full w-full flex-col items-center justify-center px-8 text-center">
+      {/* SMALL DECORATIVE CORNERS */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-7
+          top-7
+          h-10
+          w-10
+          border-l
+          border-t
+          border-[#967080]
+          opacity-35
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          bottom-7
+          right-7
+          h-10
+          w-10
+          border-b
+          border-r
+          border-[#967080]
+          opacity-35
+        "
+      />
+
+      {/* MAIN CONTENT */}
+
+      <div
+        className="
+          relative
+          z-10
+          flex
+          h-full
+          w-full
+          flex-col
+          items-center
+          px-8
+          pb-10
+          pt-10
+          text-center
+        "
+      >
+        {/* SMALL LABEL */}
+
         <p
-          className="mb-2 text-[10px] font-medium uppercase tracking-[0.4em]  text-[#4A2C3F]"
-          style={{ fontFamily: "Arial, sans-serif" }}
+          className="
+            mb-2
+            text-[9px]
+            font-medium
+            uppercase
+            tracking-[0.42em]
+            text-[#4A2C3F]
+            opacity-75
+          "
+          style={{
+            fontFamily: "Arial, sans-serif",
+          }}
         >
-          House 
+          House
         </p>
 
+        {/* TITLE */}
+
         <h1
-          className="font-semibold leading-none tracking-[-0.01em] text-[#641033]"
+          className="
+            m-0
+            text-[#641033]
+            font-semibold
+            leading-none
+            tracking-[-0.025em]
+          "
           style={{
-            fontFamily: "Georgia, serif",
-            fontSize: "clamp(1.8rem, 12cqw, 3rem)",
+            fontFamily: "Georgia, 'Times New Roman', serif",
+            fontSize: "clamp(2.4rem, 11cqw, 4.2rem)",
           }}
         >
           Rules
         </h1>
 
-        <div className="my-4 flex items-center justify-center gap-3">
-          <span className="h-px w-10 bg-[#c9a0aa]" />
-          <span className="h-2 w-2 rotate-45 bg-[#967080]" />
-          <span className="h-px w-10 bg-[#c9a0aa]" />
+        {/* DIVIDER */}
+
+        <div className="mt-5 flex items-center justify-center gap-3">
+          <span className="h-px w-12 bg-[#641033] opacity-45" />
+
+          <span
+            className="
+              h-[8px]
+              w-[8px]
+              rotate-45
+              bg-[#641033]
+              opacity-65
+            "
+          />
+
+          <span className="h-px w-12 bg-[#641033] opacity-45" />
         </div>
 
-        <ul className="flex w-full max-w-[260px] flex-col gap-3">
-          {rules.map((rule) => (
-            <li
+        {/* RULE LIST */}
+
+        <div
+          className="
+            mt-8
+            w-full
+            max-w-[320px]
+            text-left
+          "
+        >
+          {rules.map((rule, index) => (
+            <div
               key={rule}
-              className="flex items-center gap-3 rounded-2xl border border-[#e8c4cb] bg-[#fff8f3]/80 px-4 py-3 text-left text-sm text-[#641033] shadow-[0_2px_8px_rgba(150,95,115,0.12)]"
-              style={{ fontFamily: "Georgia, serif" }}
+              className="
+                group
+                relative
+                border-b
+                border-[#967080]
+                border-opacity-40
+                py-5
+              "
             >
-              <span className="shrink-0  text-[#4A2C3F]">✦</span>
-              <span>{rule}</span>
-            </li>
+              <div className="flex items-start gap-4">
+                {/* NUMBER */}
+
+                <span
+                  className="
+                    mt-[3px]
+                    w-5
+                    shrink-0
+                    text-[9px]
+                    font-medium
+                    tracking-[0.12em]
+                    text-[#641033]
+                    opacity-65
+                  "
+                  style={{
+                    fontFamily: "Arial, sans-serif",
+                  }}
+                >
+                  0{index + 1}
+                </span>
+
+                {/* RULE */}
+
+                <p
+                  className="
+                    m-0
+                    text-[15px]
+                    leading-[1.45]
+                    text-[#4A2C3F]
+                  "
+                  style={{
+                    fontFamily:
+                      "Georgia, 'Times New Roman', serif",
+                  }}
+                >
+                  {rule}
+                </p>
+              </div>
+
+              {/* LITTLE ACCENT */}
+
+              <span
+                className="
+                  absolute
+                  bottom-[-1px]
+                  left-0
+                  h-[2px]
+                  w-0
+                  bg-[#641033]
+                  opacity-60
+                  transition-all
+                  duration-300
+                  group-hover:w-8
+                "
+              />
+            </div>
           ))}
-        </ul>
+        </div>
+
+        {/* BOTTOM NOTE */}
+
+        <p
+          className="
+            mt-7
+            text-[8px]
+            uppercase
+            tracking-[0.25em]
+            text-[#4A2C3F]
+            opacity-55
+          "
+          style={{
+            fontFamily: "Arial, sans-serif",
+          }}
+        >
+          we'll have fun
+        </p>
       </div>
     </div>
   );
